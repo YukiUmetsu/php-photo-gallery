@@ -1,0 +1,30 @@
+version: '2'
+services:
+  mysql:
+    build: ./mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+    volumes:
+      - db:/var/lib/mysql
+  php:
+    build: ./php
+    ports:
+      - '80:80'
+    volumes:
+      - ./html:/var/www/html
+    env_file: .env
+    depends_on:
+      - mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    env_file: .env
+    links:
+      - mysql
+    ports:
+       - 8080:80
+    volumes:
+       - /sessions
+    depends_on:
+       - mysql
+volumes:
+  db:
