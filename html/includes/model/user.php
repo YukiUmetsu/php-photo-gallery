@@ -1,63 +1,28 @@
 <?php
-require_once(LIB_PATH.DS.'database'.DS.'database.php');
-
-/**
-* class for comments
-*/
-class Comment
-{
-  protected static $table_name = "comments";
-  protected static $db_fields = array('id', 'photo_id', 'author', 'body', 'created_at');
+require_once(LIB_PATH.'database'.DS.'database.php');
+class User {
 
   public $id;
-  public $photo_id;
-  public $user_id;
-  public $body;
-  public $created_at;
+  public $username;
+  public $password;
+  public $first_name;
+  public $last_name;
+  public $email;
+  protected static $table_name = "users";
+  protected static $db_fields = array('id', 'username', 'password', 'first_name', 'last_name', 'email');
 
-  public static function make($photo_id, $author="Anonymous", $body=""){
-    if(!empty($photo_id) && !empty($author) && !empty($body)){
-      $comment = new Comment();
-      $comment->photo_id = (int)$photo_id;
-      $comment->author = $author;
-      $comment->body = $body;
-      $comment->created_at = strftime("%Y-%m-%d %H:%M:%S", time());
-      return $comment;
-    } else {
-      return false;
-    }
-  }
-
-  public static function find_comments_by_photo_id($photo_id=1){
-    global $database;
-    $sql = "SELECT * FROM " . self::$table_name . " WHERE photo_id = ? ORDER BY created_at ASC";
-    $results = self::find_by_sql($sql, $photo_id);
-    // create a new image instance and store it in an array
-    return self::create_objects_from_array($results);
+  public function __construct($username="", $password="", $first_name="", $last_name="", $email=""){
+    $this->id = "";
+    $this->username = $username;
+    $this->password = $password;
+    $this->first_name = $first_name;
+    $this->last_name = $last_name;
+    $this->email = $email;
   }
 
   public static function find_all(){
     global $table_name;
-    $results = self::find_by_sql("SELECT * FROM " . self::$table_name);
-
-    // create a new image instance and store it in an array
-    return self::create_objects_from_array($results);
-  }
-
-  // return class instance from db instance
-  private static function create_objects_from_array($array){
-    $obj_array = array();
-     // create a new instance and store it in an array
-    foreach ($array as $db_obj) {
-      $obj = new self();
-      // create each properties from db instance
-      // ex) $obj->id = $db_obj->id
-      foreach (self::$db_fields as $field) {
-        $obj->$field = $db_obj->$field;
-      }
-      $obj_array[]   = $obj;
-    }
-    return $obj_array;
+    return self::find_by_sql("SELECT * FROM " . self::$table_name);
   }
 
   public static function find_by_id($id=1){
@@ -71,6 +36,22 @@ class Comment
     global $database;
     $result_set = $database->query($sql, $params);
     return $result_set;
+  }
+
+  public function full_name(){
+    if (isset($this->first_name) && isset($this->last_name)){
+      return $this->first_name . " " . $this->last_name;
+    } else {
+      return "";
+    }
+  }
+
+  public static function authenticate($username="",$password=""){
+    global $table_name;
+    $sql = "SELECT * FROM ". self::$table_name . " WHERE username = ? AND password = ? LIMIT 1";
+    $params = array($username, $password);
+    $result_set = self::find_by_sql($sql, $params);
+    return !empty($result_set) ? self::sort_result($result_set) : false;
   }
 
   private static function sort_result($result_set){
@@ -141,8 +122,8 @@ class Comment
     $sql .= join(", ", array_keys($attributes));
     $sql .= ") VALUES (" . sql_question_string($attributes);
     $sql .= ")";
-    $result_set = $database->query($sql, array_values($attributes));
 
+    $result_set = $database->query($sql, array_values($attributes));
     if ($result_set){
       $this->id = $database->insert_id();
       return true;
@@ -190,28 +171,4 @@ class Comment
     return true;
   }
 
-  public static function find_all_by_user_id($user_id){
-    global $database;
-    $sql = "SELECT * FROM " . self::table_name . " WHERE user_id = ?";
-    $results = $database->query($sql, $user_id);
-    return self::create_objects_from_array($results);
-  }
-
-  public static function get_current_user_comments(){
-    if(!empty($this->user_id)){
-      $results = self::find_all_by_user_id($this->user_id);
-      return $results;
-    } else {
-      return "user not found";
-    }
-  }
-
-  public function get_username(){
-    if(!empty($this->user_id)){
-      $user = User::find_by_id($this->user_id);
-      return $user->username;
-    } else {
-      return "user not found";
-    }
-  }
 }

@@ -1,5 +1,5 @@
 <?php require_once("../../includes/index.php"); ?>
 <?php
-  $session->logout();
+  $session->admin_logout();
   redirect_to("login.php");
   exit();

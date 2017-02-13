@@ -10,6 +10,6 @@
 </head>
 <body>
   <div id="header">
-    <h1>PHP Gallery: Admin</h1>
+    <a href="<?php echo DS.'public'.DS.'admin'.DS.'index.php'; ?>"><h1>PHP Photo Gallery: Admin</h1></a>
   </div>
   <div id="main">

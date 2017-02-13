@@ -17,6 +17,7 @@ img {
   border: none;
 }
 */
+
 table, tr, td, tr {
   border-collapse: collapse;
   vertical-align: top;
@@ -33,6 +34,11 @@ a {
   text-align: left;
   background: #359ff5;
   color: #D4E6F4;
+}
+
+#header a {
+  color:white;
+  text-decoration: none;
 }
 
 #header h1 {
@@ -80,6 +86,10 @@ table.boardered tr th, table.bordered tr td {
 .comment-container div{
   margin-left: auto;
   margin-right: auto;
+}
+
+.photo-detail img{
+  max-width: 100%;
 }
 
 .margin-auto {
@@ -161,4 +171,8 @@ button {
 
 .list-group-item:first-child,.list-group-item:last-child {
  border-radius:0;
+}
+
+.photo-table-wrapper {
+  margin-top: 2rem;
 }

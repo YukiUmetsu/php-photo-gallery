@@ -1,7 +1,1 @@
-2017-02-11 16:3619 | Login: ismael11 logged in.
-2017-02-11 21:5235 | Login: tkohler logged in.
-2017-02-11 21:5611 | Login: tkohler logged in.
-2017-02-11 21:5704 | Login: tkohler logged in.
-2017-02-12 09:1453 | Login: joaquin.bogisich logged in.
-2017-02-12 13:5436 | Login: hfeil logged in.
-2017-02-12 23:1632 | Login: hfeil logged in.
+2017-02-13 16:3938 | Logs Cleared: by User ID 1

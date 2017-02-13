@@ -1,3 +1,10 @@
+<?php
+if($_SESSION['user_id']){
+  $home = DS.'public'.DS.'user'.DS.'index.php';
+} else {
+  $home = DS.'public'.DS.'index.php';
+}
+?>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -11,6 +18,6 @@
 </head>
 <body>
   <div id="header">
-    <h1>PHP Gallery</h1>
+    <a href="<?php echo DS.'public'.DS.'index.php'; ?>"><h1>PHP Photo Gallery</h1></a>
   </div>
   <div id="main">

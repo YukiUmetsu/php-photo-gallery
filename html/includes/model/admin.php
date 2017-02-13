@@ -1,6 +1,6 @@
 <?php
-require_once('database/database.php');
-class User {
+require_once(LIB_PATH.'database'.DS.'database.php');
+class Admin {
 
   public $id;
   public $username;
@@ -8,8 +8,10 @@ class User {
   public $first_name;
   public $last_name;
   public $email;
-  protected static $table_name = "users";
-  protected static $db_fields = array('id', 'username', 'password', 'first_name', 'last_name', 'email');
+  public $created_at;
+  public $updated_at;
+  protected static $table_name = "admin";
+  protected static $db_fields = array('id', 'username', 'password', 'first_name', 'last_name', 'email', 'created_at', 'updated_at');
 
   public function __construct($username="", $password="", $first_name="", $last_name="", $email=""){
     $this->id = "";
@@ -164,7 +166,9 @@ class User {
     $attributes = $this->attribute();
     unset($attributes['id']);
     foreach ($attributes as $key => $value) {
-      if(empty($value)){
+      if($key == 'created_at' || $key == 'created_at'){
+        continue;
+      } elseif(empty($value)){
         return false;
       }
     }

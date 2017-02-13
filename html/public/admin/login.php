@@ -2,7 +2,7 @@
 
 require_once("../../includes/index.php");
 
-if($session->is_logged_in()){ redirect_to("index.php"); }
+if($session->is_admin_logged_in()){ redirect_to("index.php"); }
 
 if (isset($_POST['submit'])){
   // form submitted
@@ -10,11 +10,11 @@ if (isset($_POST['submit'])){
   $password = trim($_POST['password']);
 
   // Authenticate User
-  $found_user = User::authenticate($username, $password);
+  $found_user = Admin::authenticate($username, $password);
 
   if($found_user){
     // create session
-    $session->login($found_user);
+    $session->admin_login($found_user);
     // log who logged in
     log_action('Login', "{$found_user->username} logged in.");
     redirect_to("index.php");

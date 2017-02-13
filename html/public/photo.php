@@ -41,7 +41,7 @@ $comments = $photo->get_comments();
     <?php echo alert($message, ALERT_INFO); ?>
     <a href="index.php"><< Back</a><br />
 
-    <div class="col-lg-8 col-sm-8 text-center margin-auto">
+    <div class="col-lg-8 col-sm-8 text-center margin-auto photo-detail">
       <img src="<?php echo $photo->image_path(); ?>" alt="<?php echo $photo->caption; ?>">
       <p><?php echo $photo->caption; ?></p>
     </div>

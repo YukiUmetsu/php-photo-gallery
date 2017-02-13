@@ -1,5 +1,6 @@
 {
     "require": {
-        "fzaninotto/faker": "^1.6"
+        "fzaninotto/faker": "^1.6",
+        "phpmailer/phpmailer": "~5.2.22"
     }
 }

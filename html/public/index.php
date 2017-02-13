@@ -4,7 +4,7 @@ require_once('../includes/index.php');
 $all_photos = Image::find_all();
 
 $current_page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
-$per_page = 3; // records per page
+$per_page = 8; // records per page
 $total_count = count($all_photos);
 
 $pagination = new Pagination($current_page, $per_page, $total_count);

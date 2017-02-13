@@ -28,7 +28,7 @@ class MySQLDatabase{
     }
   }
 
-  public function query($sql, $given_params){
+  public function query($sql, $given_params=NULL){
 
     // check if query is INSERT query
     $is_sql_insert = false;

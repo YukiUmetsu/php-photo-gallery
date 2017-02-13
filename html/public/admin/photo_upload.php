@@ -1,7 +1,7 @@
 <?php
 
 require_once("../../includes/index.php");
-if(!$session->is_logged_in()){ redirect_to("login.php"); }
+if(!$session->is_admin_logged_in()){ redirect_to("login.php"); }
 
 $max_file_size = 1048576; //10MB
 $message = "";
