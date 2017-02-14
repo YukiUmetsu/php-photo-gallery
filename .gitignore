@@ -1,2 +1,4 @@
 .env
-/html/public/images/*
+/html/public/images/
+/html/vendor/
+
