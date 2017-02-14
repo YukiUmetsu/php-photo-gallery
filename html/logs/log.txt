@@ -1,1 +1,4 @@
 2017-02-13 16:3938 | Logs Cleared: by User ID 1
+2017-02-13 17:4816 | Login: jcollier logged in.
+2017-02-13 17:4833 | Login: jcollier logged in.
+2017-02-13 17:5944 | Login: superadmin logged in.

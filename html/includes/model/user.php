@@ -14,10 +14,17 @@ class User {
   public function __construct($username="", $password="", $first_name="", $last_name="", $email=""){
     $this->id = "";
     $this->username = $username;
-    $this->password = $password;
+    $this->password = self::create_hashed_password($password);
     $this->first_name = $first_name;
     $this->last_name = $last_name;
     $this->email = $email;
+  }
+
+  private static function create_hashed_password($given_password){
+    // crypt username and password
+    $hash = hash("sha256", $given_password);
+    $password = hash("sha256", getenv("SALT_A").$given_password.getenv("SALT_B"));
+    return $password;
   }
 
   public static function find_all(){
@@ -46,9 +53,13 @@ class User {
     }
   }
 
-  public static function authenticate($username="",$password=""){
+  public static function authenticate($username="",$given_password=""){
     global $table_name;
     $sql = "SELECT * FROM ". self::$table_name . " WHERE username = ? AND password = ? LIMIT 1";
+
+    // crypt username and password
+    $password = self::create_hashed_password($given_password);
+
     $params = array($username, $password);
     $result_set = self::find_by_sql($sql, $params);
     return !empty($result_set) ? self::sort_result($result_set) : false;
